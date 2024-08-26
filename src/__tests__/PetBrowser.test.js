@@ -33,8 +33,11 @@ const testPets = [
   },
 ];
 
+// Mock function for onAdoptPet
+const mockOnAdoptPet = jest.fn();
+
 test("renders Pet components based on its props", () => {
-  render(<PetBrowser pets={testPets} />);
+  render(<PetBrowser pets={testPets} onAdoptPet={mockOnAdoptPet} />);
 
   for (const pet of testPets) {
     expect(screen.queryByText(pet.name, { exact: false })).toBeInTheDocument();
@@ -45,6 +48,7 @@ test("passes an `onAdoptPet` callback prop to its children Pet components", () =
   const onAdoptPet = jest.fn();
   render(<PetBrowser pets={testPets} onAdoptPet={onAdoptPet} />);
 
+  // Assuming there's a button with text "Adopt pet" in the Pet component
   const button = screen.queryAllByText(/Adopt pet/)[0];
   fireEvent.click(button);
 
